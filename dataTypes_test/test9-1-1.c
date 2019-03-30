@@ -49,7 +49,7 @@ int main()
         char name[20];
         char sex;
         char addr[20];
-        struct Date birthday;
+        struct Date birthday;  // Student结构体中成员是Date结构体类型
     } a = {100, "dean", 'M', "Hefei", {3, 10, 1998}}, b = {200, "superbee", 'M', "Korean", {8, 8, 1988}};
     struct Student c = {  // 定义结构体变量c并初始化部分内部成员
         .num = 300,

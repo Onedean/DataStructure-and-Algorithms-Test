@@ -42,7 +42,7 @@ struct Student{
     float score;
 };
 int main(){
-    void print(struct Student);
+    void print(struct Student);  // 注意此处print函数声明中用了用户自定义的struct结构体类型，需要在结构体声明语句之后
     struct Student stu1,stu2;
     scanf("%d %s %f",&stu1.number,stu1.name,&stu1.score);  // 注意这里name本身是数组名就是地址，故不必加&
     scanf("%d %s %f",&stu2.number,stu2.name,&stu2.score);
