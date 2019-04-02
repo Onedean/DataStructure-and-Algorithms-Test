@@ -46,7 +46,49 @@
             6、C99允许同类型的共用体变量互相赋值
  */
 
-#include<stdio.h>
-int main(){
-    //todo
+#include <stdio.h>
+struct Student
+{
+    int num;
+    char name[20];
+    char sex;
+    char job;
+    union { // 声明一个无名共用体类型并定义，也可以在外面先声明，在这直接后定义
+        int clas;
+        char position[10];
+    } category;
+} person[2];
+int main()
+{
+    struct Student *p;
+    for (p = person; p < person + 2; p++)
+    {
+        scanf("%d %s %c %c", &p->num, p->name, &p->sex, &p->job);
+        if (p->job == 's')
+        {
+            scanf("%d", &p->category.clas); // 如果是学生则输入班级
+        }
+        else if (p->job == 't')
+        {
+            scanf("%s", p->category.position); // 如果是老师则输入职务
+        }
+        else
+        {
+            printf("Input error!");
+        }
+    }
+    printf("\n");
+    printf("NO.\tname\tsex\tjob\tclass/position\n");
+    for (p = person; p < person + 2; p++)
+    {
+        if (p->job == 's')
+        {
+            printf("%d\t%s\t%c\t%c\t%d\n", p->num, p->name, p->sex, p->job, p->category.clas);
+        }
+        else if (p->job == 't')
+        {
+            printf("%d\t%s\t%c\t%c\t%s\n", p->num, p->name, p->sex, p->job, p->category.position);
+        }
+    }
+    return 0;
 }
