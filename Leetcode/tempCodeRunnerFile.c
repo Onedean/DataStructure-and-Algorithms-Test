@@ -1,3 +1,1 @@
-if(!p){
-        printf("%d",*p);
-    }
+    if (!head || !head->next)
