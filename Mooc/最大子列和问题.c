@@ -45,7 +45,7 @@ int maxSubArray2(int *nums, int numsSize)
     return sum;
 }
 
-// 方法三：递归分而治之法,时间复杂度O(n*log(n))
+// 方法三：递归分而治之法,时间复杂度O(n*log(n))    //todo自己再敲一遍
 int max(int a, int b, int c)
 { /* 返回3个整数中的最大值 */
     return a > b ? a > c ? a : c : b > c ? b : c;
