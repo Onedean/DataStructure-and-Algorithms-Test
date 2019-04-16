@@ -10,14 +10,14 @@ typedef struct Lnode *List;
 struct Lnode
 {                              // 声明一个线性表的结构体类型
     ElementType data[MAXSIZE]; // 利用数组的连续存储空间顺序存放线性变中的各元素
-    int length;                  // 线性表的长度
+    int length;                // 线性表的长度
 };
 
 // 初始化
 List makeEmpty()
 {
     List l = (List)malloc(sizeof(struct Lnode)); // 向内存申请分配空间
-    l->length = -1;                                // 长度标位-1代表空表
+    l->length = -1;                              // 长度标位-1代表空表
     return l;                                    // 返回指向线性表的结构体指针变量l
 }
 
@@ -50,7 +50,7 @@ bool insert(List l, ElementType x, int p)
         l->data[i + 1] = l->data[i];
     }
     l->data[p] = x; // 将插入值x赋给p位置
-    l->length++;      // 线性表长度+1
+    l->length++;    // 线性表长度+1
     return true;    // 插入成功
 }
 
@@ -62,10 +62,10 @@ bool delete (List l, int p)
         prinf("删除位置不合法\n");
         return false;
     }
-    for(int i =p+1;i<=l->length;i++){
-        l->data[i-1] = l->data[i];
+    for (int i = p + 1; i <= l->length; i++)
+    {
+        l->data[i - 1] = l->data[i];
     }
-    l->length--;
-    return true
-
+    l->length--; // 如果是删除最后一个元素，实际上并没真正删除，而是是根据线性表的长度假定删除了最后一个
+    return true;
 }
