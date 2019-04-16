@@ -1,76 +1,71 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-typedef int Position;
-typedef struct LNode *List;
-struct LNode
-{
-    ElementType Data[MAXSIZE];
-    Position Last;
-};
-
-/* 初始化 */
-List MakeEmpty()
-{
-    List L;
-
-    L = (List)malloc(sizeof(struct LNode));
-    L->Last = -1;
-
-    return L;
-}
-
-/* 查找 */
+#define MAXSIZE 10
 #define ERROR -1
 
-Position Find(List L, ElementType X)
+typedef int ElementType;
+typedef struct Lnode *List;
+
+struct Lnode
+{                              // 声明一个线性表的结构体类型
+    ElementType data[MAXSIZE]; // 利用数组的连续存储空间顺序存放线性变中的各元素
+    int length;                  // 线性表的长度
+};
+
+// 初始化
+List makeEmpty()
 {
-    Position i = 0;
-
-    while (i <= L->Last && L->Data[i] != X)
-        i++;
-    if (i > L->Last)
-        return ERROR; /* 如果没找到，返回错误信息 */
-    else
-        return i; /* 找到后返回的是存储位置 */
+    List l = (List)malloc(sizeof(struct Lnode)); // 向内存申请分配空间
+    l->length = -1;                                // 长度标位-1代表空表
+    return l;                                    // 返回指向线性表的结构体指针变量l
 }
 
-/* 插入 */
-/*注意:在插入位置参数P上与课程视频有所不同，课程视频中i是序列位序（从1开始），这里P是存储下标位置（从0开始），两者差1*/
-bool Insert(List L, ElementType X, Position P)
-{ /* 在L的指定位置P前插入一个新元素X */
-    Position i;
-
-    if (L->Last == MAXSIZE - 1)
+// 查找，形参为：指向线性表的结构体指针变量l 和 查找数值x
+int find(List l, ElementType x)
+{
+    int i = 0; // i记录查找到的位置
+    while (i <= l->length && l->data[i] != x)
     {
-        /* 表空间已满，不能插入 */
-        printf("表满");
-        return false;
+        i++;
     }
-    if (P < 0 || P > L->Last + 1)
-    { /* 检查插入位置的合法性 */
-        printf("位置不合法");
-        return false;
-    }
-    for (i = L->Last; i >= P; i--)
-        L->Data[i + 1] = L->Data[i]; /* 将位置P及以后的元素顺序向后移动 */
-    L->Data[P] = X;                  /* 新元素插入 */
-    L->Last++;                       /* Last仍指向最后元素 */
-    return true;
+    return i > l->length ? ERROR : i;
 }
 
-/* 删除 */
-/*注意:在删除位置参数P上与课程视频有所不同，课程视频中i是序列位序（从1开始），这里P是存储下标位置（从0开始），两者差1*/
-bool Delete(List L, Position P)
-{ /* 从L中删除指定位置P的元素 */
-    Position i;
-
-    if (P < 0 || P > L->Last)
-    { /* 检查空表及删除位置的合法性 */
-        printf("位置%d不存在元素", P);
+// 插入，形参为:指向线性表的结构体指针变量l 和 插入值 和 插入下标位置
+bool insert(List l, ElementType x, int p)
+{
+    if (l->length == MAXSIZE - 1) // 检查表空间是否已满
+    {
+        printf("表已满\n");
         return false;
     }
-    for (i = P + 1; i <= L->Last; i++)
-        L->Data[i - 1] = L->Data[i]; /* 将位置P+1及以后的元素顺序向前移动 */
-    L->Last--;                       /* Last仍指向最后元素 */
-    return true;
+    if (p < 0 || p > l->length + 1) // 检查插入位置合法性
+    {
+        printf("位置不合法\n");
+        return false;
+    }
+    for (int i = l->length; i >= p; i++) // 倒序将p到last位置元素依次后移
+    {
+        l->data[i + 1] = l->data[i];
+    }
+    l->data[p] = x; // 将插入值x赋给p位置
+    l->length++;      // 线性表长度+1
+    return true;    // 插入成功
+}
+
+// 删除，形参为：指向线性表的结构体指针变量l 和 插入值 和 删除下标位置
+bool delete (List l, int p)
+{
+    if (p < 0 || p > l->length)
+    { // 检查删除位置合法性
+        prinf("删除位置不合法\n");
+        return false;
+    }
+    for(int i =p+1;i<=l->length;i++){
+        l->data[i-1] = l->data[i];
+    }
+    l->length--;
+    return true
+
 }
