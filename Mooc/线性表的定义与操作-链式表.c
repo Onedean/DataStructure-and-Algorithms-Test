@@ -8,7 +8,7 @@ typedef struct Lnode *Position;
 struct Lnode
 {
     ElementType data;
-    List next;
+    List next;  // 不要求逻辑上相邻的两个元素物理上也相邻，通过“链”（指针）建立起数据元素之间的逻辑关系
 };
 
 // 查找值：在链表l中查找值x的位置
